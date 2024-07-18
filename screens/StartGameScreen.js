@@ -1,31 +1,32 @@
-import {TextInput, View, StyleSheet, Alert} from "react-native";
+import { TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
-import {useState} from "react";
+import { useState } from "react";
 
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
     const [enteredNumber, setEnteredNumber] = useState('');
 
-    function numberInputHandler(enteredText){
+    function numberInputHandler(enteredText) {
         setEnteredNumber(enteredText);
     }
 
-    function confirmInputHandler(){
+    function confirmInputHandler() {
         const chosenNumber = parseInt(enteredNumber);
-        if(isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99 ){
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
             Alert.alert(
                 'Invalid Number',
                 "Number must be a number between 1 and 99!",
-                [{text:"Okay", style:"destructive", onPress: resetInputHandler}]
-                );
+                [{ text: "Okay", style: "destructive", onPress: resetInputHandler }]
+            );
             return;
         }
-        console.log("valid number");
+        onPickNumber(chosenNumber);
     }
 
-    function resetInputHandler(){
-        setEnteredNumber('')
+    function resetInputHandler() {
+        setEnteredNumber('');
     }
-    return(
+
+    return (
         <View style={styles.inputContainer}>
             <TextInput
                 keyboardType={'number-pad'}
@@ -41,13 +42,13 @@ function StartGameScreen() {
                     <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonInnerContainer}>
-                    <PrimaryButton onPress={confirmInputHandler}
-                    >Confirm</PrimaryButton>
+                    <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
                 </View>
             </View>
         </View>
     );
 }
+
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
@@ -61,25 +62,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#72063c',
         elevation: 4, //Android only concept, like box shadow
         shadowColor: "black", //ios only concept, like box shadow
-        shadowOffset:{width: 0, height: 2}, //ios only concept, like box shadow
+        shadowOffset: { width: 0, height: 2 }, //ios only concept, like box shadow
         shadowOpacity: 0.5, //ios only concept, like box shadow
         shadowRadius: 6, //ios only concept, like box shadow
     },
-    numberInput:{
+    numberInput: {
         height: 50,
         width: 50,
         fontSize: 32,
         borderBottomColor: "#ddb52f",
         borderBottomWidth: 2,
         color: "#ddb52f",
-        marginVertical:8,
+        marginVertical: 8,
         fontWeight: "bold",
         textAlign: "center"
     },
-    buttonsContainers:{
-        flexDirection:"row"
+    buttonsContainers: {
+        flexDirection: "row"
     },
-    buttonContainer:{
+    buttonInnerContainer: {
         flex: 1
     }
-})
+});
