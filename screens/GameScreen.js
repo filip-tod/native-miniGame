@@ -53,7 +53,6 @@ function GameScreen({userNumber, onGameOver}){
             currentGuess
         );
         setCurrentGuess(newRndNumber);
-
     }
 
     return(
