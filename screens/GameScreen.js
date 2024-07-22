@@ -28,7 +28,7 @@ function GameScreen({userNumber, onGameOver}){
 
     useEffect(() => {
         if (currentGuess === userNumber) {
-            console.log(onGameOver)
+            //console.log(onGameOver)
             onGameOver();
         }
     }, [currentGuess, userNumber, onGameOver]);
